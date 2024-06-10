@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Area</title>
+</head>
+<body>
+    <h2> Calculo del area y dibujo del circulo  </h2>
+    <label for="radioInput">Ingrese el radio del circulo: </label>
+    <input type="number" id="radioInput" >
+    <button onclick="calcularYDibujar()" > Calcular y Dibujar </button>
+    <p id="areaResult" ></p>
+    <canvas id="miCanvas"  width="200"   height="200"   style="border:1px solid #000" > </canvas>
+    <script>
+        // Obtener el contexto del canvas
+        const canvas = document.getElementById('miCanvas');
+        const    ctx = canvas.getContext('2d');
+        // Función para para dibujar un circulo
+        function dibujarCirculo(x, y, radio){ 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Limpiar el canvas antes de dibujar
+            ctx.beginPath();
+            ctx.arc( x, y, radio, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
+        // Funcion para calcular el area y dibujar
+        function calcularYDibujar(){
+            const radio = parseFloat(document.getElementById('radioInput').value);
+            if (!isNaN(radio) && radio > 0  ) {
+                const area = Math.PI * Math.pow(radio,2);
+                document.getElementById('areaResult').textContent = `El area del circulo es: ${area.toFixed(2)}`;
+                dibujarCirculo(canvas.width / 2, canvas.height / 2, radio);
+            }
+            else{
+                document.getElementById('areaResult').textContent = "Ingrese un radio valido";
+            }
+        }
+    </script>
+</body>
+</html>
